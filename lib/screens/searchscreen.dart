@@ -1,3 +1,5 @@
+import 'package:blood_database/screens/alldonorlistscreen.dart';
+import 'package:blood_database/screens/launchscreen.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -7,6 +9,9 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String _chosenValue;
+  
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(      
@@ -17,47 +22,49 @@ class _SearchScreenState extends State<SearchScreen> {
           backgroundColor: Colors.red,
         ),
         body: Scaffold(
+          backgroundColor: Colors.grey,
             body: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   DropdownButton<String>(
-                  value: _chosenValue,
-                  style: TextStyle(color: Colors.black),
-                  items: <String>[
-                    'A+','A-','B+', 'B-', 'AB+', 'AB-', 'O+', 'O-',
-                  ]
-                  .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                hint: Text(
-                  'Please choose a blood type',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    value: _chosenValue,
+                    style: TextStyle(color: Colors.black),
+                    items: <String>[
+                      'A+','A-','B+', 'B-', 'AB+', 'AB-', 'O+', 'O-',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                    }).toList(),
+                    hint: Text(
+                    'Please choose a blood type',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    ),
+                    onChanged: (String value){
+                    setState(() {
+                      _chosenValue = value;
+                      });
+                    },
                   ),
-                ),
-                onChanged: (String value){
-                  setState(() {
-                    _chosenValue = value;
-                    });
-                  },
-                ),
                 ElevatedButton(
-                  onPressed: (){}, 
+                  onPressed: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => DonorList()),);
+
+                  }, 
                   child: Text('Find'),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,                    
                   ),
                 ),
-                
-
-
-                ],
+              ],
               ),
             ),
           ),
